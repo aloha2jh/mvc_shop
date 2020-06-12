@@ -98,7 +98,7 @@
 							<a href="/product/updateProduct?prodNo=${pvo.prodNo}">수정</a>
 						</c:if>
 						<c:if test="${ menu == 'search'}">
-							<a href="/purchase/addPurchase?prodNo=${pvo.prodNo}">구매</a> 
+							<a href="/purchase/addPurchase?prodNo=${pvo.prodNo}&userId=${user.userId}">구매</a> 
 						</c:if>
 
 

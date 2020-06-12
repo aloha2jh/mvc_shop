@@ -82,78 +82,34 @@
 		</div>
 		<!-- table 위쪽 검색 Start /////////////////////////////////////-->
 		
-		
-      <!--  table Start /////////////////////////////////////-->
-      <table class="table table-hover table-striped" >
-      
-        <thead>
-          <tr>
-            <th align="center">No</th>
-            <th align="left">상품명</th>
-            <th align="left">가격</th>
-            <th align="left">등록일</th>
-            <th align="left">현재상태</th>
-            <th align="left">간량정보</th>
-          </tr>
-        </thead>
-       
-		<tbody>
-		
+	  
 		  <c:set var="i" value="0" />
 		  <c:forEach var="map" items="${map}">
 			<c:set var="i" value="${ i+1 }" />
 			<tr>
 			  <td align="center">${ map.prodNo }</td>
 			  
+				<div class="row">
+				  <div class="col-sm-6 col-md-4">
+				    <div class="thumbnail">
+				      <img src="/images/uploadFiles/${map.imgFile} }" alt="...">
+				      <div class="caption">
+				        <h3>Thumbnail label</h3>
+				        <p>${map.price}</p>
+				        <p>${ map.prodTranCode == '000' ? "판매중" : "재고없음" }</p>
+				        <!-- <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p> -->
+				      </div>
+				    </div>
+				  </div>
+				</div>
 			
-				  <c:if test="${map.prodTranCode == '000'}">		
-				     	<td align="left">
-							<span>${ map.prodName }</span>
-							<input type="hidden" value='{"prodNo":"${map.prodNo}","menu":"${menu}"}' /> 
-					    </td>
-				  </c:if>
-				  <c:if test="${map.prodTranCode != '000' }"> 
-				  		<td align="left" class="no-click">
-							<span>${ map.prodName }</span>
-							<input type="hidden" value='{"prodNo":"${map.prodNo}","menu":"${menu}"}' /> 
-						</td>
-				  </c:if>
+				 
 	 
-			  	
-			  
-			  <td align="left">${map.price}</td>
-			  <td align="left">${map.regDate}</td>
-			  <td align="left"> 
-			  	<c:if test="${ menu =='manage' }">
-					<c:choose>
-						<c:when test="${map.prodTranCode == '000'}">
-							판매중
-						</c:when>
-						<c:when test="${map.prodTranCode=='001' }">
-							구매완료
-							<a href="/purchase/updateTranCode?prodNo=${map.prodNo}&tranCode=002">배송하기</a>
-						</c:when>
-						<c:when test="${map.prodTranCode=='002' }">
-							배송중
-						</c:when>	
-						<c:when test="${map.prodTranCode=='003' }">
-							배송완료
-						</c:when>	
-					</c:choose>							
-				</c:if>	
-				<c:if test="${ menu =='search' }">
-						<p>${ map.prodTranCode == '000' ? "판매중" : "재고없음" }</p>			
-				</c:if> 
-			</td>
-			  <td align="left">
+			   
 			  	<i class="glyphicon glyphicon-ok" id= "${map.prodNo}"></i> 
-			  </td>
-			</tr>
+			   
           </c:forEach>
-        
-        </tbody>
-      
-      </table>
+         
 	  <!--  table End /////////////////////////////////////-->
 	  
  	</div>

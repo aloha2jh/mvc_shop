@@ -52,7 +52,7 @@ public class PurchaseController {
 	// addPurchase View  (O)
 	@RequestMapping  ( value="addPurchase", method=RequestMethod.GET )
 	public String addPurchase(  @RequestParam("prodNo") int prodNo , Model model ,  HttpSession session) throws Exception { 
-		
+		 
 		Product prod = productService.getProduct(prodNo); 
 		String userId= ((User) session.getAttribute("user")).getUserId();
 		model.addAttribute("pvo", prod); // Model 과 View 연결
@@ -76,6 +76,7 @@ public class PurchaseController {
 		
 		Product prod = new Product();
 		prod.setProdNo(prodNo);
+		
 		psvo.setBuyer(user);
 		psvo.setPurchaseProd(prod);
 		
@@ -83,10 +84,10 @@ public class PurchaseController {
 		psvo.setDivyDate(psvo.getDivyDate().substring(2,10)); 
 		
 		
-		purchaseService.addPurchase(psvo); 
+		purchaseService.addPurchase(psvo);
 		
+		model.addAttribute("pvo", prod);
 		model.addAttribute("psvo", psvo);
-		
 		return "forward:/purchase/addPurchase.jsp";
 	}
  
@@ -95,10 +96,8 @@ public class PurchaseController {
 	@RequestMapping( value="getPurchase", method=RequestMethod.GET )
 	public String getPurchase( @RequestParam("tranNo") int tranNo , Model model  ) throws Exception {
 		  
-		Purchase psvo = purchaseService.getPurchase(tranNo); 
-		 
-		model.addAttribute("psvo", psvo); // Model 과 View 연결
-		
+		Purchase psvo = purchaseService.getPurchase(tranNo);  
+		model.addAttribute("psvo", psvo); // Model 과 View 연결 
 		return "forward:/purchase/getPurchase.jsp";
 	}
 	
@@ -151,8 +150,7 @@ public class PurchaseController {
 		
 
 		String userId=((User)session.getAttribute("user")).getUserId();
-		
-		
+		 
 		// 현재 페이지
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);

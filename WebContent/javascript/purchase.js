@@ -29,22 +29,23 @@ $(document).on('click','td:nth-child(6) > i' , (e) => {
 });
 
 //리스트에서 상품 클릭시
-$(document).on('click','td:nth-child(2):not(.no-click) ', (e)=>{
-	const data = JSON.parse( $(e.target).next('input').val() );
-	const prodNo = data.prodNo;
-	const menu = data.menu;
-	self.location ="/product/getProduct?prodNo="+prodNo+"&menu="+menu;
+$(document).on('click','td:nth-child(2)', (e)=>{
+ 
+	const tranNo =$(e.target).find('input').val(); 
+	self.location ="/purchase/getPurchase?tranNo="+tranNo;
 });
+ 
+
  
 
 
 //검색
 const _search = { 
 	fncGetList : ( currentPage ) =>{
-		const menu = $('.menu').val();
-		$("#currentPage").val(currentPage);
-		$("form").attr("method" , "POST").attr("action" , "/product/listProduct?menu="+menu).submit();
+
+		$("#currentPage").val( currentPage );
+		$("form").attr("method" , "POST").attr("action" , "/purchase/listPurchase").submit();
 	} 
 }
- 
+
  

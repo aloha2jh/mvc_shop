@@ -43,6 +43,7 @@ const _navi = {
 		"판매상품등록":"/product/addProductView.jsp",
 		"판매상품관리":"/product/listProduct?menu=manage", 
 		"상품검색":"/product/listProduct?menu=search", 
+		"구매이력조회":"/purchase/listPurchase"
 	},
 	moveLocation : ( e ) =>{ 
 		 self.location =_navi.locationInfo[e]  

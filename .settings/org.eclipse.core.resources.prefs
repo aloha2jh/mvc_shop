@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//WebContent/javascript/common.js=EUC-KR
 encoding//WebContent/javascript/product.js=EUC-KR
+encoding//WebContent/javascript/purchase.js=EUC-KR
 encoding//WebContent/javascript/user.js=EUC-KR
 encoding//WebContent/layout/header.jsp=EUC-KR
 encoding//WebContent/user/addUserView.jsp=EUC-KR

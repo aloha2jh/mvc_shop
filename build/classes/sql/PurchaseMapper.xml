@@ -16,7 +16,9 @@
 		<result property="tranCode" column="TRAN_STATUS_CODE" jdbcType="VARCHAR"/>
 		<result property="tranNo" column="TRAN_NO" jdbcType="NUMERIC"/>   
 
+		<result property="purchaseProd.imgFile" column="IMAGE_FILE" jdbcType="VARCHAR"/>   
 		<result property="purchaseProd.prodNo" column="prod_no" jdbcType="NUMERIC"/>   
+		<result property="purchaseProd.prodName" column="prod_name" jdbcType="VARCHAR"/>   
 		<result property="buyer.userId" column="buyer_id" jdbcType="VARCHAR"/>    
  	</resultMap>
  	 
@@ -32,8 +34,8 @@
 	  
 	 <select 	id="getPurchase" parameterType="string"	resultMap="purchaseMap">
 		select *
-		from transaction 
-		where  TRAN_NO = #{value}		
+		from transaction t, product p
+		where  t.prod_no = p.prod_no and TRAN_NO = #{value}		
 	 </select>
 	  
 	 <update id="updatePurchase"	parameterType="purchase" >
@@ -56,13 +58,11 @@
 	 <select  id="getPurchaseList"  parameterType="map"	resultMap="purchaseMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	select tran_no, receiver_name, receiver_phone, tran_status_code, buyer_id, PROD_NO 
-		         						from transaction 
-											<!-- ////////// if 넣어서, serachCondition 구현해야됨. --> 
-										  
-           									where 
-           									buyer_id=#{buyerId}
-        							) inner_table 	
+	  					FROM		(	select t.tran_no, t.receiver_name, t.receiver_phone, t.tran_status_code, t.buyer_id, t.PROD_NO , p.prod_name
+										 from transaction t, product p
+										 where t.prod_no = p.prod_no 
+										 and buyer_id=#{buyerId}
+									) inner_table 	
         							
 						  WHERE ROWNUM &lt;= #{search.endRowNum}  )
 			WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum}
